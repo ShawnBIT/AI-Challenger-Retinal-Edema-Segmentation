@@ -68,6 +68,11 @@ def eval(args, eval_data_loader, model,result_path,logger):
                 _, pred_batch = torch.max(output_seg, 1)
                 pred_seg[start_id:end_id,:,:] = pred_batch.cpu().data
                 pred_cls[start_id:end_id,:] = output_cls.cpu().data
+<<<<<<< HEAD
+=======
+
+            pred_seg = pred_seg.numpy().astype('uint8') 
+>>>>>>> ecbd548165f1a3b9b234505ddd954e70ebef8e0b
             
             if args.vis:
                 imt = (imt.squeeze().numpy()).astype('uint8')
@@ -80,7 +85,10 @@ def eval(args, eval_data_loader, model,result_path,logger):
 
             batch_time.update(time.time() - end)
             label_seg = label.numpy().astype('uint8')
+<<<<<<< HEAD
             pred_seg = pred_seg.numpy().astype('uint8') 
+=======
+>>>>>>> ecbd548165f1a3b9b234505ddd954e70ebef8e0b
             
             ret = aic_fundus_lesion_segmentation(label_seg,pred_seg)
             ret_segmentation.append(ret)
