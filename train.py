@@ -1,41 +1,30 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
-#@Author:ShawnWang
-
+# Author:ShawnWang
 ##### System library #####
 import os
 import os.path as osp
-from os.path import exists, join, split
+from os.path import exists
 import argparse
 import json
 import logging
-import math
 import time
 import numpy as np
 import shutil
-from PIL import Image
-import random
-
 ##### pytorch library #####
 import torch
 from torch import nn
 import torch.backends.cudnn as cudnn
-import torch.optim as optim
-from torchvision import datasets
-import torchvision.transforms as tt
-from torch.autograd import Variable,Function
-import torch.nn.functional as F
-
+from torch.autograd import Variable
 ##### My own library #####
 import data.seg_transforms as dt
 from data.Seg_dataset import SegList
 from utils.logger import Logger
 from models.net_builder import net_builder
 from utils.loss import loss_builder
-from utils.utils import compute_dice_score, compute_average_dice,AverageMeter, save_checkpoint, visualize_result,eval_seg,aic_fundus_lesion_segmentation,compute_segment_score,compute_single_segment_score,class_num2target_cls,aic_fundus_lesion_classification,count_param
-
-
+from utils.utils import compute_average_dice,AverageMeter, save_checkpoint,count_param,target_seg2target_cls
+from utils.utils import aic_fundus_lesion_segmentation,aic_fundus_lesion_classification,compute_segment_score,compute_single_segment_score
+# logger vis
 FORMAT = "[%(asctime)-15s %(filename)s:%(lineno)d %(funcName)s] %(message)s"
 logging.basicConfig(format=FORMAT)
 logger_vis = logging.getLogger(__name__)
@@ -45,7 +34,7 @@ logger_vis.setLevel(logging.DEBUG)
 
 def adjust_learning_rate(args, optimizer, epoch):
     """
-    Sets the learning rate to the initial LR decayed by 10 every 30 epochs
+    Sets the learning rate to the initial LR decayed by 10 every 30 epochs(step = 30)
     """
     if args.lr_mode == 'step':
         lr = args.lr * (0.1 ** (epoch // args.step))
@@ -59,7 +48,6 @@ def adjust_learning_rate(args, optimizer, epoch):
     return lr
 
 def train(args,train_loader, model, criterion, optimizer, epoch,print_freq=10):
-
    # set the AverageMeter 
     batch_time = AverageMeter()
     losses = AverageMeter()
@@ -67,48 +55,39 @@ def train(args,train_loader, model, criterion, optimizer, epoch,print_freq=10):
     Dice_1 = AverageMeter()
     Dice_2 = AverageMeter()
     Dice_3 = AverageMeter()
-
     # switch to train mode
     model.train()
     end = time.time()
-    correct = 0
-    total = 0
+    correct,total  = 0,0
     for i, (input, target) in enumerate(train_loader):
-        # if i > 20:
-        #     break
-        class_num = target.numpy()
-        target_cls = class_num2target_cls(class_num).cuda()
-
-        input = input.cuda()
-        target = target.cuda()
-        input_var = torch.autograd.Variable(input)
-        target_var = torch.autograd.Variable(target)
-        target_var_cls = torch.autograd.Variable(target_cls)
+        if i > 20:
+            break
+        # transfer seg target to cls target
+        target_seg = target.numpy()
+        target_cls = target_seg2target_cls(target_seg).cuda()
+        # Variable
+        input_var = Variable(input).cuda()
+        target_var_seg = Variable(target).cuda()
+        target_var_cls = Variable(target_cls).cuda()
         # forward
-        output,cls_branch = model(input_var)
-
-
-        if 'mix' in args.loss:
-            loss_1 = criterion[0](output, target_var)
-            loss_2 = criterion[1](output, target_var)
-            loss_3 = criterion[2](cls_branch,target_var_cls)
-            loss = loss_1 + loss_2 + loss_3
-        else:
-            loss = criterion(output, target_var)
+        output_seg,output_cls = model(input_var)
+        # loss 
+        loss_1 = criterion[0](output_seg, target_var_seg)
+        loss_2 = criterion[1](output_seg, target_var_seg)
+        loss_3 = criterion[2](output_cls,target_var_cls)
+        loss = loss_1 + loss_2 + loss_3
         losses.update(loss.data, input.size(0))
-        _, pred = torch.max(output, 1)
-        pred_label = pred.cpu().data.numpy()
-        label = target_var.cpu().data.numpy()
-
-        pred_cls = (cls_branch > 0.5)
-        #pred_cls = pred_cls.cpu().data.numpy()
+        # metric dice for seg
+        _, pred_seg = torch.max(output_seg, 1)
+        pred_seg = pred_seg.cpu().data.numpy()
+        label_seg = target_var_seg.cpu().data.numpy()
+        dice_score,dice_1,dice_2,dice_3 = compute_average_dice(pred_seg.flatten(),label_seg.flatten())
+        # metric acc for cls
+        pred_cls = (output_cls > 0.5)
         label_cls = target_var_cls.cpu().data.numpy()
-
         total += target_var_cls.size(0)*3
         correct += pred_cls.eq(target_var_cls.byte()).sum().item()
-
-        dice_score,dice_1,dice_2,dice_3 = compute_average_dice(pred_label.flatten(),label.flatten())
-        #print('dice:',dice_score,'label sum:',label.sum())
+        # update dice
         dice.update(dice_score)
         Dice_1.update(dice_1)
         Dice_2.update(dice_2)
@@ -120,7 +99,7 @@ def train(args,train_loader, model, criterion, optimizer, epoch,print_freq=10):
         # measure elapsed time
         batch_time.update(time.time() - end)
         end = time.time()
-
+        # logger vis
         if i % print_freq == 0:
             logger_vis.info('Epoch: [{0}][{1}/{2}]\t'
                         'Time {batch_time.val:.3f} ({batch_time.avg:.3f})\t'
@@ -136,7 +115,7 @@ def train(args,train_loader, model, criterion, optimizer, epoch,print_freq=10):
     return losses.avg,dice.avg,Dice_1.avg,Dice_2.avg,Dice_3.avg
 
 def train_seg(args,result_path,logger):
-    
+
     for k, v in args.__dict__.items():
         print(k, ':', v)
     # load the net
@@ -144,30 +123,16 @@ def train_seg(args,result_path,logger):
     model = torch.nn.DataParallel(net).cuda()
     param = count_param(model)
     print('###################################')
-    print('Model #%s# parameters: %.2f M' % ('Dilated',param/1e6))
-    # load the pretrained model
-    if args.model_path:
-        print("=> loading pretrained model '{}'".format(args.model_path))
-        checkpoint = torch.load(args.model_path)
-        pretrained_dict = checkpoint['state_dict']
-        model_dict = model.state_dict()
-        pretrained_dict = {k: v for k, v in pretrained_dict.items() if k in model_dict}#filter out unnecessary keys 
-        model_dict.update(pretrained_dict)
-        model.load_state_dict(model_dict)
-        #model.load_state_dict(checkpoint['state_dict'])
-
-    
+    print('Model #%s# parameters: %.2f M' % (args.name,param/1e6))
     # set the loss criterion
     criterion = loss_builder(args.loss)
     # Data loading code
-    info = json.load(open(join(args.list_dir, 'info.json'), 'r'))
+    info = json.load(open(osp.join(args.list_dir, 'info.json'), 'r'))
     normalize = dt.Normalize(mean=info['mean'],std=info['std'])
     # data transforms
     t = []
     if args.resize:
         t.append(dt.Resize(args.resize))
-    if args.mask:
-        t.append(dt.TrainMask()) 
     if args.random_rotate > 0:
         t.append(dt.RandomRotate(args.random_rotate))
     if args.random_scale > 0:
@@ -179,28 +144,30 @@ def train_seg(args,result_path,logger):
               dt.ToTensor(),
               normalize])
     train_loader = torch.utils.data.DataLoader(
-        SegList(args.data_dir, 'train', dt.Compose(t),
-                list_dir=args.list_dir),
-        batch_size=args.batch_size, shuffle=True, num_workers=args.workers,
-        pin_memory=True, drop_last=True
-    )
+        SegList(args.data_dir, 'train', dt.Compose(t),list_dir=args.list_dir),batch_size=args.batch_size, 
+        shuffle=True, num_workers=args.workers,pin_memory=True, drop_last=True)
 
     # define loss function (criterion) and pptimizer
-    if args.optimizer == 'SGD':
+    if args.optimizer == 'SGD':    #SGD optimizer
         optimizer = torch.optim.SGD(net.parameters(),
                                     args.lr,
                                     momentum=args.momentum,
                                     weight_decay=args.weight_decay)
-    elif args.optimizer == 'Adam':
-        #Adam optimizer
+    elif args.optimizer == 'Adam': #Adam optimizer
         optimizer = torch.optim.Adam(net.parameters(),
                                     args.lr,
                                     betas=(0.9, 0.99),
                                     weight_decay=args.weight_decay)
+
     cudnn.benchmark = True
     best_dice = 0
     start_epoch = 0
 
+    # load the pretrained model
+    if args.model_path:
+        print("=> loading pretrained model '{}'".format(args.model_path))
+        checkpoint = torch.load(args.model_path)
+        model.load_state_dict(checkpoint['state_dict'])
     # optionally resume from a checkpoint
     if args.resume:
         if os.path.isfile(args.resume):
@@ -219,7 +186,6 @@ def train_seg(args,result_path,logger):
     for epoch in range(start_epoch, args.epochs):
         lr = adjust_learning_rate(args,optimizer, epoch)
         logger_vis.info('Epoch: [{0}]\tlr {1:.06f}'.format(epoch, lr))
-
         # train for one epoch
         loss,dice_train,dice_1,dice_2,dice_3 = train(args,train_loader, model, criterion, optimizer, epoch)
         # evaluate on validation set
@@ -227,7 +193,6 @@ def train_seg(args,result_path,logger):
         # save best checkpoints
         is_best = dice_val > best_dice
         best_dice = max(dice_val, best_dice)
-
         checkpoint_dir = osp.join(result_path,'checkpoint')
         if not exists(checkpoint_dir):
             os.makedirs(checkpoint_dir)
@@ -259,18 +224,18 @@ def val(args,eval_data_loader, model):
     Dice_3 = AverageMeter()
     ret_segmentation = []
     
-    for iter, (image, label) in enumerate(eval_data_loader):
+    for iter, (image, label, _) in enumerate(eval_data_loader):
         # batchsize = 1 ,so squeeze dim 1
         image = image.squeeze(dim=0)
         label = label.squeeze(dim=0)
 
-        class_num = label.numpy()
-        target_cls = class_num2target_cls(class_num)
+        target_seg = label.numpy()
+        target_cls = target_seg2target_cls(target_seg)
         
         with torch.no_grad():
             # batch test for memory reduce
             batch = 16
-            pred = torch.zeros(image.shape[0],image.shape[2],image.shape[3])
+            pred_seg = torch.zeros(image.shape[0],image.shape[2],image.shape[3])
             pred_cls = torch.zeros(image.shape[0],3)
             for i in range(0,image.shape[0],batch):
                 start_id = i
@@ -278,19 +243,17 @@ def val(args,eval_data_loader, model):
                 if end_id > image.shape[0]:
                     end_id = image.shape[0]
                 image_batch = image[start_id:end_id,:,:,:]
-                image_var = Variable(image_batch, requires_grad=False, volatile=True).cuda()
-
-                # wangshen model forward
-                output,cls_branch = model(image_var)
-                _, pred_batch = torch.max(output, 1)
-                pred[start_id:end_id,:,:] = pred_batch.cpu().data
-                pred_cls[start_id:end_id,:] = cls_branch.cpu().data
-            
-            pred_label = pred.numpy().astype('uint8') # predict label
+                image_var = Variable(image_batch).cuda()
+                # model forward
+                output_seg,output_cls = model(image_var)
+                _, pred_batch = torch.max(output_seg, 1)
+                pred_seg[start_id:end_id,:,:] = pred_batch.cpu().data
+                pred_cls[start_id:end_id,:] = output_cls.cpu().data
+            # merice dice for seg
+            pred_seg = pred_seg.numpy().astype('uint8') 
             batch_time.update(time.time() - end)
-            label = label.numpy().astype('uint8')
-
-            ret = aic_fundus_lesion_segmentation(label,pred_label)
+            label_seg = label.numpy().astype('uint8')
+            ret = aic_fundus_lesion_segmentation(label_seg,pred_seg)
             ret_segmentation.append(ret)
             dice_score = compute_single_segment_score(ret)
             dice_list.append(dice_score)
@@ -298,10 +261,9 @@ def val(args,eval_data_loader, model):
             Dice_1.update(ret[1])
             Dice_2.update(ret[2])
             Dice_3.update(ret[3])
-
+            # metric auc for cls
             ground_truth = target_cls.numpy().astype('float32')
-            prediction = pred_cls.numpy().astype('float32') # predict label
-            
+            prediction = pred_cls.numpy().astype('float32') 
             if iter == 0:
                 detection_ref_all = ground_truth
                 detection_pre_all = prediction
@@ -318,13 +280,14 @@ def val(args,eval_data_loader, model):
                     'Time {batch_time.val:.3f} ({batch_time.avg:.3f})\t'
                     .format(iter, len(eval_data_loader), dice = dice,dice_1 = Dice_1,dice_2 = Dice_2,dice_3 = Dice_3,batch_time=batch_time))
 
+    # compute average dice for seg
     final_seg,seg_1,seg_2,seg_3 = compute_segment_score(ret_segmentation)
     print('### Seg ###')
     print('Final Seg Score:{}'.format(final_seg))
     print('Final Seg_1 Score:{}'.format(seg_1))
     print('Final Seg_2 Score:{}'.format(seg_2))
     print('Final Seg_3 Score:{}'.format(seg_3))
-
+    # compute average auc for cls
     ret_detection = aic_fundus_lesion_classification(detection_ref_all, detection_pre_all, num_samples=len(eval_data_loader)*128)
     auc = np.array(ret_detection).mean()
     print('AUC :',auc)
@@ -335,9 +298,7 @@ def val(args,eval_data_loader, model):
     return final_seg,seg_1,seg_2,seg_3,dice_list,auc,auc_1,auc_2,auc_3
 
 def val_seg(args,model):
-
-    phase = 'val'
-    info = json.load(open(join(args.list_dir, 'info.json'), 'r'))
+    info = json.load(open(osp.join(args.list_dir, 'info.json'), 'r'))
     normalize = dt.Normalize(mean=info['mean'], std=info['std'])
 
     t = []
@@ -349,31 +310,18 @@ def val_seg(args,model):
               dt.ToTensor(),
               normalize])
 
-    dataset = SegList(args.data_dir, phase, dt.Compose(t), 
-        list_dir=args.list_dir)
-    val_loader = torch.utils.data.DataLoader(
-        dataset,
-        batch_size=1, shuffle=False, num_workers=args.workers,
-        pin_memory=False
-    )
+    dataset = SegList(args.data_dir, 'val', dt.Compose(t),list_dir=args.list_dir)
+    val_loader = torch.utils.data.DataLoader(dataset,batch_size=1, shuffle=False, 
+        num_workers=args.workers,pin_memory=False)
 
     cudnn.benchmark = True
     dice_avg,dice_1,dice_2,dice_3,dice_list,auc,auc_1,auc_2,auc_3 = val(args,val_loader, model)
-    print('####### Bad Case Analysis ########')
-    bad_case_analysis(dice_avg,dice_list)
 
     return dice_avg,dice_1,dice_2,dice_3,dice_list,auc,auc_1,auc_2,auc_3
 
-def bad_case_analysis(dice_avg,dice_list):
-    for i,dice in enumerate(dice_list):
-        if dice < dice_avg and dice >= 0.5*dice_avg:
-            print('Bad Case : #{} dice:{}'.format(i,dice))
-        elif dice < 0.5*dice_avg:
-            print('Very Bad Case : #{} dice:{}'.format(i,dice))
-
 
 def parse_args():
-    parser = argparse.ArgumentParser(description='')
+    parser = argparse.ArgumentParser(description='train')
     # config
     parser.add_argument('-d', '--data-dir', default=None, required=True)
     parser.add_argument('-l', '--list-dir', default=None,
@@ -403,7 +351,6 @@ def parse_args():
     parser.add_argument('--random-scale', default=0, type=float)
     parser.add_argument('--resize', default=0, type=int)
     parser.add_argument('-s', '--crop-size', default=0, type=int)
-    parser.add_argument('--mask',action='store_true')
     # Pretrain and Checkpoint
     parser.add_argument('-p','--pretrained', type=bool)
     parser.add_argument('--model-path', default=None,type=str)
@@ -423,14 +370,13 @@ def main():
     ##### logger setting #####
     task_name = args.list_dir.split('/')[-1]
     pretrained = 'pre' if args.pretrained else 'nopre'
-    result_path = osp.join('result',task_name,'train',args.name + '_' + pretrained + '_' + args.loss + '_' +str(args.lr) + '_ChuangXinGongChang')
+    result_path = osp.join('result',task_name,'train',args.name + '_' + pretrained + '_' + args.loss + '_' +str(args.lr) + '_github')
     if not exists(result_path):
         os.makedirs(result_path)
     resume = True if args.resume else False
     logger = Logger(osp.join(result_path,'dice_epoch.txt'), title='dice',resume=resume)
     #if not resume:
     logger.set_names(['Epoch','Dice_Train','Dice_Val','AUC','Dice_1','Dice_11','Dice_2','Dice_22','Dice_3','Dice_33','AUC_1','AUC_2','AUC_3',])
-
     # train_seg
     train_seg(args,result_path,logger)
       
