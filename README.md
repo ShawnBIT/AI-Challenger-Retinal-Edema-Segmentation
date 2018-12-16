@@ -4,9 +4,9 @@
 
 Clone the repo:
 
-```python
- $ git clone https://github.com/ShawnBIT/AI-challenger-Retinal-Edema-Segmentation.git
-```
+  ```
+  $ git clone https://github.com/ShawnBIT/AI-challenger-Retinal-Edema-Segmentation.git
+  ```
 
 #### Requirements
 
