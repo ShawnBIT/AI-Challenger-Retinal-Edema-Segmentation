@@ -10,6 +10,7 @@ Clone the repo:
 
 #### Requirements
  ```
+torch>=0.4.0
 torchvision
 argparse
 numpy
