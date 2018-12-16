@@ -1,4 +1,4 @@
-# AI-challenger-Retinal-Edema-Segmentation
+# AI-Challenger-Retinal-Edema-Segmentation
 
 ## Getting Started
 
