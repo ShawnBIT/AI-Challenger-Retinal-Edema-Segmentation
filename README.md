@@ -10,13 +10,13 @@ Clone the repo:
 
 #### Requirements
  ```
-* torchvision
-* argparse
-* numpy
-* pillow
-* scipy
-* scikit-image
-* sklearn
+torchvision
+argparse
+numpy
+pillow
+scipy
+scikit-image
+sklearn
  ```
   ```
   $ pip install -r requirements.txt
