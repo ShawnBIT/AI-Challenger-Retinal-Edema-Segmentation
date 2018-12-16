@@ -9,7 +9,7 @@ Clone the repo:
   ```
 
 #### Requirements
-
+ ```
 * torchvision
 * argparse
 * numpy
@@ -17,7 +17,7 @@ Clone the repo:
 * scipy
 * scikit-image
 * sklearn
-
+ ```
   ```
   $ pip install -r requirements.txt
   ```
