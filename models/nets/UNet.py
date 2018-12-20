@@ -56,24 +56,24 @@ class UNet(nn.Module):
                 init_weights(m, init_type='kaiming')
 
     def forward(self, inputs):
-        conv1 = self.conv1(inputs)       # 16*512*512
-        maxpool1 = self.maxpool1(conv1)  # 16*256*256
+        conv1 = self.conv1(inputs)       # 16*512*1024
+        maxpool1 = self.maxpool1(conv1)  # 16*256*512
 
-        conv2 = self.conv2(maxpool1)     # 32*256*256
-        maxpool2 = self.maxpool2(conv2)  # 32*128*128
+        conv2 = self.conv2(maxpool1)     # 32*256*512
+        maxpool2 = self.maxpool2(conv2)  # 32*128*256
 
-        conv3 = self.conv3(maxpool2)     # 64*128*128
-        maxpool3 = self.maxpool3(conv3)  # 64*64*64
+        conv3 = self.conv3(maxpool2)     # 64*128*256
+        maxpool3 = self.maxpool3(conv3)  # 64*64*128
 
-        conv4 = self.conv4(maxpool3)     # 128*64*64
-        maxpool4 = self.maxpool4(conv4)  # 128*32*32
+        conv4 = self.conv4(maxpool3)     # 128*64*128
+        maxpool4 = self.maxpool4(conv4)  # 128*32*64
 
-        center = self.center(maxpool4)   # 256*32*32
+        center = self.center(maxpool4)   # 256*32*64
         cls_branch = self.cls(center).squeeze()
-        up4 = self.up_concat4(center,conv4)  # 128*64*64
-        up3 = self.up_concat3(up4,conv3)     # 64*128*128
-        up2 = self.up_concat2(up3,conv2)     # 32*256*256
-        up1 = self.up_concat1(up2,conv1)     # 16*512*512
+        up4 = self.up_concat4(center,conv4)  # 128*64*128
+        up3 = self.up_concat3(up4,conv3)     # 64*128*256
+        up2 = self.up_concat2(up3,conv2)     # 32*256*512
+        up1 = self.up_concat1(up2,conv1)     # 16*512*1024
 
         final_1 = self.final_1(up1)
         # final_2 = self.final_2(up1)
@@ -141,15 +141,15 @@ class UNet_Nested(nn.Module):
 
     def forward(self, inputs):
         # column : 0
-        X_00 = self.conv00(inputs)       # 16*512*512
-        maxpool0 = self.maxpool0(X_00)  # 16*256*256
-        X_10= self.conv10(maxpool0)     # 32*256*256
-        maxpool1 = self.maxpool1(X_10)  # 32*128*128
-        X_20 = self.conv20(maxpool1)     # 64*128*128
-        maxpool2 = self.maxpool2(X_20)  # 64*64*64
-        X_30 = self.conv30(maxpool2)     # 128*64*64
-        maxpool3 = self.maxpool3(X_30)  # 128*32*32
-        X_40 = self.conv40(maxpool3)   # 256*32*32
+        X_00 = self.conv00(inputs)       
+        maxpool0 = self.maxpool0(X_00)  
+        X_10= self.conv10(maxpool0)     
+        maxpool1 = self.maxpool1(X_10) 
+        X_20 = self.conv20(maxpool1)    
+        maxpool2 = self.maxpool2(X_20)  
+        X_30 = self.conv30(maxpool2)     
+        maxpool3 = self.maxpool3(X_30)  
+        X_40 = self.conv40(maxpool3)   
         cls_branch = self.cls(X_40).squeeze()
         # column : 1
         X_01 = self.up_concat01(X_10,X_00)
@@ -242,15 +242,15 @@ class UNet_Nested_dilated(nn.Module):
 
     def forward(self, inputs):
         # column : 0
-        X_00 = self.conv00(inputs)       # 16*512*512
-        maxpool0 = self.maxpool0(X_00)  # 16*256*256
-        X_10= self.conv10(maxpool0)     # 32*256*256
-        maxpool1 = self.maxpool1(X_10)  # 32*128*128
-        X_20 = self.conv20(maxpool1)     # 64*128*128
-        maxpool2 = self.maxpool2(X_20)  # 64*64*64
-        X_30 = self.conv30(maxpool2)     # 128*64*64
-        maxpool3 = self.maxpool3(X_30)  # 128*32*32
-        X_40 = self.conv40(maxpool3)   # 256*32*32
+        X_00 = self.conv00(inputs)      
+        maxpool0 = self.maxpool0(X_00)  
+        X_10= self.conv10(maxpool0)     
+        maxpool1 = self.maxpool1(X_10)  
+        X_20 = self.conv20(maxpool1)     
+        maxpool2 = self.maxpool2(X_20)  
+        X_30 = self.conv30(maxpool2)     
+        maxpool3 = self.maxpool3(X_30)  
+        X_40 = self.conv40(maxpool3)   
         X_40_d = self.dilated(X_40)
         cls_branch = self.cls(X_40_d).squeeze()
         # column : 1
