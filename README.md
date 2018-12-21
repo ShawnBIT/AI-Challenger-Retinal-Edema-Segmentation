@@ -30,11 +30,11 @@ sklearn
 #### Data Pre-process
 
 
-## Usage
+## 3. Usage
 
-## Result
+## 4. Result
 
-## To do
+## 5. To do
 - [x] Add Presentation PPT
 - [ ] Add Dataset source
 - [ ] Add Visualization gif figure
@@ -45,7 +45,7 @@ sklearn
 - [ ] Add Reference
 - [ ] Add Personal experience
 
-## Acknowledge
+## 6. Acknowledge
 
-## Reference
+## 7. Reference
   
