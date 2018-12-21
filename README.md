@@ -60,7 +60,7 @@ CUDA_VISIBLE_DEVICES=2 python3 test.py -d ./data/dataset/ -l ./data/data_path -j
   
 ## 4. Results
 
-| Model |Multi-Task| Params| Loss| Val_Dice| Val_Auc| Test_Dice| Test_Auc|Model|
+| Model(checkpoint link) |Multi-Task| Params| Loss| Val_Dice| Val_Auc| Test_Dice| Test_Auc|Model|
 |---|---|---|---|---|---|---|---|---
 | ResNet18(*pre)  |No| 11.18M | BCE| -    | 0.971| -| 0.904|link|
 | UNet            |No| 2.47M  | WCE+Dice| 0.772| -| 0.683| -|link|
