@@ -12,6 +12,7 @@ Clone the repo:
 
 #### Requirements
  ```
+python >= 3.6
 torch>=0.4.0
 torchvision
 argparse
