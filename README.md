@@ -1,6 +1,6 @@
 # AI-Challenger-Retinal-Edema-Segmentation
 
-## Getting Started
+## 1.Getting Started
 
 Clone the repo:
 
@@ -22,6 +22,10 @@ sklearn
   ```
   $ pip install -r requirements.txt
   ```
+ 
+## 2.Data Prepare and Pre-process
+
+
 ## Usage
 
 ## Result
