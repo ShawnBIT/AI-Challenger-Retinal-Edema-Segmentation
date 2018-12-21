@@ -36,7 +36,7 @@ sklearn
 
 ## 3. Usage
 
-## 4. Result
+## 4. Results
 
 ## 5. Main Technique Analysis
 
