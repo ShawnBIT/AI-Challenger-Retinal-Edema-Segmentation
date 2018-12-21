@@ -67,5 +67,5 @@ sklearn
 
 #### Code
  * https://github.com/fyu/drn (Our framework style mianly refered to this repository.)
- * https://github.com/ozan-oktay/Attention-Gated-Networks（Our model style mianly refered to this repository.）
+ * https://github.com/ozan-oktay/Attention-Gated-Networks (Our model style mianly refered to this repository.）
   
