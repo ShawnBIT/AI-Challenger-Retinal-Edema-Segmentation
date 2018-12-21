@@ -62,13 +62,13 @@ CUDA_VISIBLE_DEVICES=2 python3 test.py -d ./data/dataset/ -l ./data/data_path -j
 
 | Model |Multi-Task| Params| Loss| Val_Dice| Val_Auc| Test_Dice| Test_Auc|Checkpoint|
 |---|---|---|---|---|---|---|---|---
-| ResNet18(*pre)  |No| 11.18M | BCE| -    | 0.971| -| 0.904|link|
+| ResNet18(*pre)  |No| 11.18M | BCE| -    | 0.971| -| 0.904| link |
 | UNet            |No| 2.47M  | WCE+Dice| 0.772| -| 0.683| -|link|
 | UNet            |Yes| 2.47M | WCE+Dice+BCE| 0.785(+1.3%)|0.985(+1.4%) |0.701(+1.8%) |- | link|
 | UNet++          |Yes| 2.95M | WCE+Dice+BCE| 0.784(+1.2%)|0.986(+1/5%)| -| -| link|
-| UNet++          |Yes| 2.95M | WCE+ELDice+BCE| | | | |link|
-| Dialted UNet++  |Yes| 5.32M | WCE+ELDice+BCE| | | | |link|
-| Fusion(**)      |-|- | -| | | | |link|
+| UNet++          |Yes| 2.95M | WCE+ELDice+BCE|0.799(+2.7%)|0.989(+1.8%)|0.736(+5.3%) | -|link|
+| Dialted UNet++  |Yes| 5.32M | WCE+ELDice+BCE|**0.807(+3.5%)**|0.978(+0.6%) | | |link|
+| Fusion(*)      |-|- | -|0.805(+3.3%)|**0.991(2%)**|**0.744(6.1%)**|**0.986(+8.2%)**|link|
 
 
 ## 5. Main Technique Analysis
