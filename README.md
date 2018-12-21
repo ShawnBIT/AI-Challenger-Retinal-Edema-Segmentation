@@ -23,7 +23,11 @@ sklearn
   $ pip install -r requirements.txt
   ```
  
-## 2. Data Prepare and Pre-process
+## 2. Data Prepare 
+
+#### Data Download
+
+#### Data Pre-process
 
 
 ## Usage
