@@ -6,8 +6,8 @@
 
 Clone the repo:
 
-  ```
-  $ git clone https://github.com/ShawnBIT/AI-challenger-Retinal-Edema-Segmentation.git
+  ```bash
+  git clone https://github.com/ShawnBIT/AI-challenger-Retinal-Edema-Segmentation.git
   ```
 
 #### Requirements
@@ -23,8 +23,8 @@ scikit-image
 sklearn
  ```
  Install all dependent libraries:
-  ```
-  $ pip install -r requirements.txt
+  ```bash
+  pip install -r requirements.txt
   ```
  
 ## 2. Data Prepare 
