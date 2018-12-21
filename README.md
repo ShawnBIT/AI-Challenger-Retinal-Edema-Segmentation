@@ -64,11 +64,11 @@ CUDA_VISIBLE_DEVICES=2 python3 test.py -d ./data/dataset/ -l ./data/data_path -j
 |---|---|---|---|---|---|---|---|---
 | ResNet18(*pre)  |No| 11.18M | BCE| -    | 0.971| -| 0.904|link|
 | UNet            |No| 2.47M  | WCE+Dice| 0.772| -| 0.683| -|link|
-| UNet            |Yes| `imagenet` | Loss| Val_Dice| Val_Auc| Test_Dice| Test_Auc|link|
-| UNet++          |Yes| `imagenet` | Loss| Val_Dice| Val_Auc| Test_Dice| Test_Auc|link|
-| UNet++          |Yes| `imagenet` | Loss| Val_Dice| Val_Auc| Test_Dice| Test_Auc|link|
-| Dialted UNet++  |Yes| `imagenet` | Loss| Val_Dice| Val_Auc| Test_Dice| Test_Auc|link|
-| Fusion(**)      |-| `imagenet` | Loss| Val_Dice| Val_Auc| Test_Dice| Test_Auc|link|
+| UNet            |Yes| 2.47M | WCE+Dice+BCE| Val_Dice| Val_Auc| Test_Dice| Test_Auc|link|
+| UNet++          |Yes| 2.95M | WCE+Dice+BCE| Val_Dice| Val_Auc| Test_Dice| Test_Auc|link|
+| UNet++          |Yes| 2.95M | WCE+ELDice+BCE| Val_Dice| Val_Auc| Test_Dice| Test_Auc|link|
+| Dialted UNet++  |Yes| 5.32M | WCE+ELDice+BCE| Val_Dice| Val_Auc| Test_Dice| Test_Auc|link|
+| Fusion(**)      |-|- | Loss| Val_Dice| Val_Auc| Test_Dice| Test_Auc|link|
 
 
 ## 5. Main Technique Analysis
