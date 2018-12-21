@@ -1,6 +1,9 @@
 # AI-Challenger-Retinal-Edema-Segmentation
 > Our team ranked fourth in objective results and ranked first in subjective results. Finally, we got the fourth place in this challenge.
 
+We build an end-to-end **multi-task framework** that can simultaneously detect and segment retinal edema lesions.We use the latest **UNet++** model to better integrate high-level and low-level features for segmentation and add a classification head at the highest level feature map for detection. For two types of  small lesions,we a novel **exponential logarithmic loss** function to enhance the segmentation performance. Meanwhile, we introduce the **dilated convolution module**, which significantly increases the receptive field of the model and improves the segmentation performance of big lesions. More importantly, only random horizontal flip data augmentation is needed and no need for post-processing.
+
+Finally, the dice of single model on the test set is **0.736**. The dice of fusion model on the test set is **0.744** and the detection AUC is **0.986**. In addition, the memory of inference stage is **7.3G** when we set batch is 8 and the inference time is **9.5s** per patient.
 
 ## 1. Getting Started
 
