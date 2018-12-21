@@ -35,6 +35,18 @@ sklearn
 
 
 ## 3. Usage
+To train the model:
+```bash
+  CUDA_VISIBLE_DEVICES=4,5,6,7 python3 train.py --name unet_nested -d ./data/dataset/ -l ./data/data_path --batch-size 16 -j 16 --epochs 100 -o Adam --lr 0.001 --lr-mode poly --momentum 0.9 --loss mix_33
+  
+  CUDA_VISIBLE_DEVICES=4,5,6,7 python3 train.py --name unet  -d ./data/dataset/ -l ./data/data_path --batch-size 32 -j 32 --epochs 100 -o Adam --lr 0.001 --step 20 --momentum 0.9 --loss mix_3
+
+  ```
+
+To evaluate the model and save the visualization result:
+
+To test the model and generate the result zip file:
+
 
 ## 4. Results
 
