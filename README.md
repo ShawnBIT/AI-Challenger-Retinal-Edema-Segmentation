@@ -65,7 +65,7 @@ CUDA_VISIBLE_DEVICES=2 python3 test.py -d ./data/dataset/ -l ./data/data_path -j
 | ResNet18(*pre)  |No| 11.18M | BCE| -    | 0.971| -| 0.904|link|
 | UNet            |No| 2.47M  | WCE+Dice| 0.772| -| 0.683| -|link|
 | UNet            |Yes| 2.47M | WCE+Dice+BCE| 0.785(+1.3%)|0.985(+1.4%) |0.701(+1.8%) |- | link|
-| UNet++          |Yes| 2.95M | WCE+Dice+BCE| | | | | link|
+| UNet++          |Yes| 2.95M | WCE+Dice+BCE| 0.784(+1.2%)|0.986(+1/5%)| -| -| link|
 | UNet++          |Yes| 2.95M | WCE+ELDice+BCE| | | | |link|
 | Dialted UNet++  |Yes| 5.32M | WCE+ELDice+BCE| | | | |link|
 | Fusion(**)      |-|- | -| | | | |link|
