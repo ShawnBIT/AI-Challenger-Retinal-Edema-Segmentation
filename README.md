@@ -26,6 +26,13 @@ sklearn
 
 ## Result
 
+## To do
+- [x] Add Visualization figure
+- [ ] Add Usage
+- [ ] Add Results
+- [ ] Add Future work
+
+
 ## Acknowledge
 
 ## Reference
