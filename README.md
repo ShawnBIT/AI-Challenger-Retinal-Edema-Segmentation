@@ -1,5 +1,7 @@
 # AI-Challenger-Retinal-Edema-Segmentation
 
+
+
 ## 1. Getting Started
 
 Clone the repo:
@@ -34,10 +36,14 @@ sklearn
 
 ## 4. Result
 
-## 5. To do
+## 5. Main Technique Analysis
+
+## 6. Future Work
+
+## 7. To do
 - [x] Add Presentation PPT
 - [ ] Add Dataset source
-- [ ] Add Visualization gif figure
+- [ ] Add Visualization demo
 - [ ] Add Usage
 - [ ] Add Main technique analysis
 - [ ] Add Results
@@ -45,7 +51,7 @@ sklearn
 - [ ] Add Reference
 - [ ] Add Personal experience
 
-## 6. Acknowledge
+## 8. Acknowledge
 
-## 7. Reference
+## 9. Reference
   
