@@ -31,7 +31,8 @@ sklearn
 - [ ] Add Usage
 - [ ] Add Results
 - [ ] Add Future work
-
+- [ ] Add Reference
+- [ ] Add Personal Experience
 
 ## Acknowledge
 
