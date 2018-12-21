@@ -66,5 +66,6 @@ sklearn
  * [U-Net: Convolutional Networks for Biomedical Image Segmentation](https://arxiv.org/pdf/1505.04597.pdf) (2015 MICCAI)
 
 #### Code
- * https://github.com/fyu/drn (Our code style mianly refered to this repository.)
+ * https://github.com/fyu/drn (Our framework style mianly refered to this repository.)
+ * https://github.com/ozan-oktay/Attention-Gated-Networks（Our model style mianly refered to this repository.）
   
