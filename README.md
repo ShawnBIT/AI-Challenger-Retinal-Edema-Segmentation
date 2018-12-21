@@ -27,12 +27,14 @@ sklearn
 ## Result
 
 ## To do
-- [x] Add Visualization figure
+- [x] Add Presentation PPT
+- [ ] Add Visualization gif figure
 - [ ] Add Usage
+- [ ] Add Main technique analysis
 - [ ] Add Results
 - [ ] Add Future work
 - [ ] Add Reference
-- [ ] Add Personal Experience
+- [ ] Add Personal experience
 
 ## Acknowledge
 
