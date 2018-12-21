@@ -54,6 +54,8 @@ sklearn
 - [ ] Add Personal experience
 
 ## 8. Acknowledge
+ * GPU support of [DeepWise](http://www.deepwise.com/) 
+ * Mentor Prof. [Yizhou Wang](http://www.idm.pku.edu.cn/staff/wangyizhou/)'s guidence
 
 ## 9. Reference
   
