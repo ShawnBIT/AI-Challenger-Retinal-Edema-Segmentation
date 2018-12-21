@@ -62,8 +62,8 @@ CUDA_VISIBLE_DEVICES=2 python3 test.py -d ./data/dataset/ -l ./data/data_path -j
 
 | Model |Multi-Task| Params| Loss| Val_Dice| Val_Auc| Test_Dice| Test_Auc|
 |---|---|---|---|---|---|---|---
-| `ResNet18(*pre)`  |`No`| `imagenet` | Loss| Val_Dice| Val_Auc| Test_Dice| Test_Auc|
-| `UNet`            |`No`| `imagenet` | Loss| Val_Dice| Val_Auc| Test_Dice| Test_Auc|
+| ResNet18(*pre)  |No| 11.18M | BCE| -    | 0.971| -| 0.904|
+| UNet            |No| 2.47M  | WCE+Dice| 0.772| -| 0.683| -|
 | UNet            |Yes| `imagenet` | Loss| Val_Dice| Val_Auc| Test_Dice| Test_Auc|
 | UNet++          |Yes| `imagenet` | Loss| Val_Dice| Val_Auc| Test_Dice| Test_Auc|
 | UNet++          |Yes| `imagenet` | Loss| Val_Dice| Val_Auc| Test_Dice| Test_Auc|
