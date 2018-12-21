@@ -60,6 +60,10 @@ sklearn
 
 ## 9. Reference
 #### Paper
+ * [UNet++: A Nested U-Net Architecture for Medical Image Segmentation](https://arxiv.org/pdf/1807.10165.pdf)
+ * [3D Segmentation with Exponential Logarithmic Loss for Highly Unbalanced Object Sizes](https://arxiv.org/pdf/1809.00076.pdf)
+ * 
 
 #### Code
+ * 
   
