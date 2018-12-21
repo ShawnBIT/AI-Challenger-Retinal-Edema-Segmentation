@@ -60,15 +60,15 @@ CUDA_VISIBLE_DEVICES=2 python3 test.py -d ./data/dataset/ -l ./data/data_path -j
   
 ## 4. Results
 
-| Model |Multi-Task| Params| Loss| Val_Dice| Val_Auc| Test_Dice| Test_Auc|
-|---|---|---|---|---|---|---|---
-| ResNet18(*pre)  |No| 11.18M | BCE| -    | 0.971| -| 0.904|
-| UNet            |No| 2.47M  | WCE+Dice| 0.772| -| 0.683| -|
-| UNet            |Yes| `imagenet` | Loss| Val_Dice| Val_Auc| Test_Dice| Test_Auc|
-| UNet++          |Yes| `imagenet` | Loss| Val_Dice| Val_Auc| Test_Dice| Test_Auc|
-| UNet++          |Yes| `imagenet` | Loss| Val_Dice| Val_Auc| Test_Dice| Test_Auc|
-| Dialted UNet++  |Yes| `imagenet` | Loss| Val_Dice| Val_Auc| Test_Dice| Test_Auc|
-| Fusion(**)      |-| `imagenet` | Loss| Val_Dice| Val_Auc| Test_Dice| Test_Auc|
+| Model |Multi-Task| Params| Loss| Val_Dice| Val_Auc| Test_Dice| Test_Auc|Model_Link|
+|---|---|---|---|---|---|---|---|---
+| ResNet18(*pre)  |No| 11.18M | BCE| -    | 0.971| -| 0.904|best_checkpoint|
+| UNet            |No| 2.47M  | WCE+Dice| 0.772| -| 0.683| -|best_checkpoint|
+| UNet            |Yes| `imagenet` | Loss| Val_Dice| Val_Auc| Test_Dice| Test_Auc|best_checkpoint|
+| UNet++          |Yes| `imagenet` | Loss| Val_Dice| Val_Auc| Test_Dice| Test_Auc|best_checkpoint|
+| UNet++          |Yes| `imagenet` | Loss| Val_Dice| Val_Auc| Test_Dice| Test_Auc|best_checkpoint|
+| Dialted UNet++  |Yes| `imagenet` | Loss| Val_Dice| Val_Auc| Test_Dice| Test_Auc|best_checkpoint|
+| Fusion(**)      |-| `imagenet` | Loss| Val_Dice| Val_Auc| Test_Dice| Test_Auc|best_checkpoint|
 
 
 ## 5. Main Technique Analysis
