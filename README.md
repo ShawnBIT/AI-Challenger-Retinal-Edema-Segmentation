@@ -61,6 +61,7 @@ CUDA_VISIBLE_DEVICES=2 python3 test.py -d ./data/dataset/ -l ./data/data_path -j
 ## 4. Results
 
 | Model |Multi-Task| Params| Loss| Val_Dice| Val_Auc| Test_Dice| Test_Auc|
+|---|---|---|---|---|---|---|---
 | VGG16               |`vgg16`| `imagenet` | Loss| Val_Dice| Val_Auc| Test_Dice| Test_Auc|
 | VGG19               |`vgg19`| `imagenet` | Loss| Val_Dice| Val_Auc| Test_Dice| Test_Auc|
 | ResNet18            |`resnet18`| `imagenet` | Loss| Val_Dice| Val_Auc| Test_Dice| Test_Auc|
