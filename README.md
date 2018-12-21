@@ -44,7 +44,7 @@ sklearn
 
 ## 7. To do
 - [x] Add Presentation PPT
-- [] Add Dataset source
+- [ ] Add Dataset source
 - [ ] Add Visualization demo
 - [ ] Add Usage
 - [ ] Add Main technique analysis
