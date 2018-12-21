@@ -1,5 +1,5 @@
 # AI-Challenger-Retinal-Edema-Segmentation
-> Our team ranked fourth in objective results and ranked first in subjective results. Finally, we got the fourth place in this challenge.
+> Our team ranked fourth in objective results and first in subjective results. Finally, we got the fourth place in this challenge.
 
 
 ## 1. Getting Started
