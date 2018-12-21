@@ -21,7 +21,7 @@ scipy
 scikit-image
 sklearn
  ```
- Install all dependent libraries with the following command：
+ Install all dependent libraries:
   ```
   $ pip install -r requirements.txt
   ```
