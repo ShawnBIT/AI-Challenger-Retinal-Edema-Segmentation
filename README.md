@@ -5,6 +5,8 @@ We build an end-to-end **multi-task framework** that can simultaneously detect a
 
 Finally, the dice of single model on the test set is **0.736**. The dice of fusion model on the test set is **0.744** and the detection AUC is **0.986**. The memory of inference stage is **7.3G(TITAN Xp)** when we set batch is 8 and the inference time is **9.5s** per patient.
 
+| Image |Ground Truth| UNet| UNet++| Dialted UNet++|Fusion| 
+|---|---|---|---|---|---|---
 <p align="center">
   <img src="https://github.com/ShawnBIT/AI-Challenger-Retinal-Edema-Segmentation/blob/master/materials/figures/0010.gif" width="1000"/>  
   <img src="https://github.com/ShawnBIT/AI-Challenger-Retinal-Edema-Segmentation/blob/master/materials/figures/0014.gif" width="1000"/>
