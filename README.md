@@ -94,7 +94,7 @@ CUDA_VISIBLE_DEVICES=2 python3 test.py -d ./data/dataset/ -l ./data/data_path -j
 ## 7. To do
 - [x] Add Presentation PPT
 - [ ] Add Dataset source
-- [ ] Add Visualization demo
+- [x] Add Visualization demo
 - [x] Add Usage
 - [ ] Add Main technique analysis
 - [x] Add Results
