@@ -12,6 +12,7 @@ Finally, the dice of single model on the test set is **0.736**. The dice of fusi
   <img src="https://github.com/ShawnBIT/AI-Challenger-Retinal-Edema-Segmentation/blob/master/materials/figures/0014.gif" width="1000"/>
 </p>
 
+****
 
 ## 1. Getting Started
 
