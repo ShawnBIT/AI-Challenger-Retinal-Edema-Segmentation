@@ -6,7 +6,7 @@ We build an end-to-end **multi-task framework** that can simultaneously detect a
 Finally, the dice of single model on the test set is **0.736**. The dice of fusion model on the test set is **0.744** and the detection AUC is **0.986**. The memory of inference stage is **7.3G(TITAN Xp)** when we set batch is 8 and the inference time is **9.5s** per patient.
 
 ****
-The visualization of the predictions of our models in the validation set (case 11 and case 15) is as follows. It is obvious that although we use a 2D model, there is good continuity in 3D dimension. The gif images are powered by http://www.gif5.net/.
+The visualization of the predictions of our models in the validation set (case 11 and case 15) is as follows. It is obvious that although we use a 2D model, our model holds **good continuity** in 3D dimension. The gif images are powered by [gif5.net](http://www.gif5.net/).
 
 |Original Image|Ground Truth| UNet（Dice+WCE）| UNet++（ELDice+WCE）| Dialted UNet++|UNet&UNet++ Fusion| 
 |---|---|---|---|---|---
