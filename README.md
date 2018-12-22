@@ -13,7 +13,7 @@ The visualization of the predictions of our models in the validation set (case 1
 <p align="center">
   <img src="https://github.com/ShawnBIT/AI-Challenger-Retinal-Edema-Segmentation/blob/master/materials/figures/0010.gif" width="1000"/>  
   <img src="https://github.com/ShawnBIT/AI-Challenger-Retinal-Edema-Segmentation/blob/master/materials/figures/0014.gif" width="1000"/>
-  <img src="https://github.com/ShawnBIT/AI-Challenger-Retinal-Edema-Segmentation/blob/master/materials/figures/label_color.png" width="400"/>
+  <img src="https://github.com/ShawnBIT/AI-Challenger-Retinal-Edema-Segmentation/blob/master/materials/figures/label_color.png" width="300"/>
 </p>
 
 
