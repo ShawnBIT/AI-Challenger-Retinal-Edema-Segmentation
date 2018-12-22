@@ -7,10 +7,10 @@ Finally, the dice of single model on the test set is **0.736**. The dice of fusi
 
 
   |Original Image|Ground Truth| UNet| UNet++| Dialted UNet++|Fusion| 
-  |---|---|--------|---|---|---
+  |---|---|---|---|---|---
 <p align="center">
-  <img src="https://github.com/ShawnBIT/AI-Challenger-Retinal-Edema-Segmentation/blob/master/materials/figures/0010.gif" width="8000"/>  
-  <img src="https://github.com/ShawnBIT/AI-Challenger-Retinal-Edema-Segmentation/blob/master/materials/figures/0014.gif" width="8000"/>
+  <img src="https://github.com/ShawnBIT/AI-Challenger-Retinal-Edema-Segmentation/blob/master/materials/figures/0010.gif" width="800"/>  
+  <img src="https://github.com/ShawnBIT/AI-Challenger-Retinal-Edema-Segmentation/blob/master/materials/figures/0014.gif" width="800"/>
 </p>
 
 
