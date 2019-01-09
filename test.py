@@ -152,12 +152,12 @@ def test_seg(args,result_path):
         # 1
         net_1 = net_builder('unet_nested')
         net_1 = nn.DataParallel(net_1).cuda()
-        checkpoint_1 = torch.load('result/ori_3D/train/unet_nested_nopre_mix_33_NEW_multi_2_another/checkpoint/model_best.pth.tar')
+        checkpoint_1 = torch.load('result/ori_3D/train/unet_nested/checkpoint/model_best.pth.tar')
         net_1.load_state_dict(checkpoint_1['state_dict'])
         # 2
         net_2 = net_builder('unet')
         net_2 = nn.DataParallel(net_2).cuda()
-        checkpoint_2 = torch.load('result/ori_3D/train/unet_nopre_mix_3_NEW_multi_2/checkpoint/model_best.pth.tar')
+        checkpoint_2 = torch.load('result/ori_3D/train/unet/checkpoint/model_best.pth.tar')
         net_2.load_state_dict(checkpoint_2['state_dict'])
 
         net = [net_1,net_2]
