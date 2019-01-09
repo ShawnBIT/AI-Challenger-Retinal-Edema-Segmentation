@@ -59,7 +59,7 @@ CUDA_VISIBLE_DEVICES=4,5,6,7 python3 train.py --name unet  -d ./data/dataset/ -l
   ```
 To evaluate a single model:
 ```bash
-CUDA_VISIBLE_DEVICES=2 python3 eval.py -d ./data/dataset/ -l ./data/data_path -j 32 --vis --seg-name unet_nested --seg-path result/ori_3D/train/unet_nested_nopre_mix_33_NEW_multi_2_another/checkpoint/model_best.pth.tar
+CUDA_VISIBLE_DEVICES=2 python3 eval.py -d ./data/dataset/ -l ./data/data_path -j 32 --vis --seg-name unet_nested --seg-path result/ori_3D/train/unet_nested/checkpoint/model_best.pth.tar
   ```
 To evaluate the fusion model:
 ```bash
@@ -67,7 +67,7 @@ CUDA_VISIBLE_DEVICES=2 python3 eval.py -d ./data/dataset/ -l ./data/data_path -j
   ```
 To test a single model:
 ```bash
-CUDA_VISIBLE_DEVICES=2 python3 test.py -d ./data/dataset/ -l ./data/data_path -j 32 --seg --det --seg-name unet_nested --seg-path result/ori_3D/train/unet_nested_nopre_mix_33_NEW_multi_2_another/checkpoint/model_best.pth.tar
+CUDA_VISIBLE_DEVICES=2 python3 test.py -d ./data/dataset/ -l ./data/data_path -j 32 --seg --det --seg-name unet_nested --seg-path result/ori_3D/train/unet_nested/checkpoint/model_best.pth.tar
   ```
 To test the fusion model:
 ```bash
@@ -80,9 +80,9 @@ CUDA_VISIBLE_DEVICES=2 python3 test.py -d ./data/dataset/ -l ./data/data_path -j
 |---|---|---|---|---|---|---|---|---
 | ResNet18(*pre)  |No| 11.18M | BCE| -    | 0.971| -| 0.904| - |
 | UNet            |No| 2.47M  | WCE+Dice| 0.772| -| 0.683| -|-|
-| UNet            |Yes| 2.47M | WCE+Dice+BCE| 0.785(+1.3%)|0.985(+1.4%) |0.701(+1.8%) |- | link|
+| UNet            |Yes| 2.47M | WCE+Dice+BCE| 0.785(+1.3%)|0.985(+1.4%) |0.701(+1.8%) |- |[link](https://pan.baidu.com/s/1pa8NC09nZnLq3Cs37TduXg)|
 | UNet++          |Yes| 2.95M | WCE+Dice+BCE| 0.784(+1.2%)|0.986(+1/5%)| -| -|-|
-| UNet++          |Yes| 2.95M | WCE+ELDice+BCE|0.799(+2.7%)|0.989(+1.8%)|0.736(+5.3%) | -|link|
+| UNet++          |Yes| 2.95M | WCE+ELDice+BCE|0.799(+2.7%)|0.989(+1.8%)|0.736(+5.3%) | -|[link](https://pan.baidu.com/s/1pa8NC09nZnLq3Cs37TduXg)|
 | Dialted UNet++  |Yes| 5.32M | WCE+ELDice+BCE|**0.807(+3.5%)**|0.978(+0.6%) | | |[link](https://pan.baidu.com/s/1pa8NC09nZnLq3Cs37TduXg)|
 | Fusion(*)      |-|- | -|0.805(+3.3%)|**0.991(2%)**|**0.744(6.1%)**|**0.986(+8.2%)**|-|
 
