@@ -1,8 +1,8 @@
 torch>=0.4.0
 torchvision
 argparse
-numpy
+numpy==1.13.1
 pillow
 scipy
-scikit-image
+scikit-image==0.14.0
 sklearn
