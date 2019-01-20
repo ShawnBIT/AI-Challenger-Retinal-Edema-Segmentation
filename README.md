@@ -126,9 +126,9 @@ CUDA_VISIBLE_DEVICES=2 python3 test.py -d ./data/dataset/ -l ./data/data_path -j
 ## 6. Future Work
   * 3D-Segmentation Model (patch-wise segmention)
   * Mask R-CNN Detection Model (segmention based on detection)
-  * More data augmentation (Train and Test)
-  * Content encoding module
-  * scSE attention module
+  * More Data Augmentation (Train and Test)
+  * Content Encoding Module
+  * scSE Attention Module
 
 ## 7. To do
 - [x] Add Presentation PPT
