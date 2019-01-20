@@ -48,22 +48,22 @@ sklearn
 #### Data Download
 First, you are supposed to make a dataset directory.
 ```bash
-  cd data
-  mkdir dataset
+cd data
+mkdir dataset
 ```
  You can download the source data from [here](https://pan.baidu.com/s/1NRgV2FCtCeHt2vc3Pmjo8w).
  Then you have to put the three zip files in the directory 'data/dataset' and unzip them in the current directory.
 ```bash
- unzip ai_challenger_fl2018_testset.zip
- unzip ai_challenger_fl2018_trainingset.zip
- unzip ai_challenger_fl2018_validationset.zip
+unzip ai_challenger_fl2018_testset.zip
+unzip ai_challenger_fl2018_trainingset.zip
+unzip ai_challenger_fl2018_validationset.zip
 ```
 
 #### Data Pre-process
 Because we stack the bottom and upper slice to form a three channel image to model the content between slices, we have to pre-process the original images. 
 ```bash
-  cd ..
-  python utils/gen_image.py
+cd ..
+python utils/gen_image.py
 ```
 
 ## 3. Usage
