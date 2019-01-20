@@ -124,11 +124,11 @@ CUDA_VISIBLE_DEVICES=2 python3 test.py -d ./data/dataset/ -l ./data/data_path -j
 
 
 ## 6. Future Work
-  * 3D-Segmentation Model
-  * Mask R-CNN Detection Model
+  * 3D-Segmentation Model (patch-wise segmention)
+  * Mask R-CNN Detection Model (segmention based on detection)
+  * More data augmentation (Train and Test)
   * Content encoding module
   * scSE attention module
-  * More data argmentation
 
 ## 7. To do
 - [x] Add Presentation PPT
@@ -138,9 +138,9 @@ CUDA_VISIBLE_DEVICES=2 python3 test.py -d ./data/dataset/ -l ./data/data_path -j
 - [x] Add Usage
 - [x] Add pretrained model
 - [x] Add Results
-- [ ] Add Future work
+- [x] Add Future work
 - [x] Add Reference
-- [ ] Add Personal experience
+- [ ] Add Experience summary
 
 ## 8. Acknowledge
  * GPU support of [DeepWise](http://www.deepwise.com/) 
