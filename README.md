@@ -46,12 +46,13 @@ sklearn
 ## 2. Data Prepare 
 
 #### Data Download
-You can download the source data from [here](https://pan.baidu.com/s/1NRgV2FCtCeHt2vc3Pmjo8w).
+First, you are supposed to make a dataset directory.
  ```bash
   cd data
   mkdir dataset
   ```
- Then you have to put the three zip file to data/dataset diretoy.
+ You can download the source data from [here](https://pan.baidu.com/s/1NRgV2FCtCeHt2vc3Pmjo8w).
+ Then you have to put the three zip files in the directory 'data/dataset' and unzip them in the current directory.
 
 
 #### Data Pre-process
