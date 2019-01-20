@@ -65,6 +65,23 @@ Because we stack the bottom and upper slice to form a three channel image to mod
 cd ..
 python utils/gen_image.py
 ```
+#### Data Structure
+
+```
+  data/dataset
+  ├── Edema_trainingset
+  |   ├── original_images
+  │   ├── label_images
+  │   ├── trans3channel_images
+  ├── Edema_validationset
+  |   ├── original_images
+  │   ├── label_images
+  │   ├── trans3channel_images
+  │   ├── groundtruth
+  ├── Edema_testset
+  |   ├── original_images
+  │   ├── trans3channel_images
+  ```
 
 ## 3. Usage
 To train the model:
