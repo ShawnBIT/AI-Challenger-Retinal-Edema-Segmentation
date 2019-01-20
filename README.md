@@ -47,6 +47,11 @@ sklearn
 
 #### Data Download
 You can download the source data from [here](https://pan.baidu.com/s/1NRgV2FCtCeHt2vc3Pmjo8w).
+ ```bash
+  cd data
+  mkdir dataset
+  ```
+ Then you have to put the three zip file to data/dataset diretoy.
 
 
 #### Data Pre-process
