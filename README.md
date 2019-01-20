@@ -145,7 +145,7 @@ CUDA_VISIBLE_DEVICES=2 python3 test.py -d ./data/dataset/ -l ./data/data_path -j
 ## 8. Acknowledgement
  * GPU support of [DeepWise](http://www.deepwise.com/) 
  * Mentor Prof. [Yizhou Wang](http://www.idm.pku.edu.cn/staff/wangyizhou/)'s guidence
- * The host，[AI challenger](https://challenger.ai/) platform
+ * The host,[AI challenger](https://challenger.ai/) platform
 
 ## 9. Reference
 #### Paper
