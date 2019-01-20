@@ -120,16 +120,22 @@ CUDA_VISIBLE_DEVICES=2 python3 test.py -d ./data/dataset/ -l ./data/data_path -j
 | Fusion(*)      |-|- | -|0.805(+3.3%)|**0.991(2%)**|**0.744(6.1%)**|**0.986(+8.2%)**|-|
 
 
-## 5. Main Technique Analysis
+## 5. Experience Summary
+
 
 ## 6. Future Work
+  * 3D-Segmentation Model
+  * Mask R-CNN Detection Model
+  * Content encoding module
+  * scSE attention module
+  * More data argmentation
 
 ## 7. To do
 - [x] Add Presentation PPT
 - [x] Add Dataset source
+- [x] Add Data prepare
 - [x] Add Visualization demo
 - [x] Add Usage
-- [ ] Add Main technique analysis
 - [x] Add pretrained model
 - [x] Add Results
 - [ ] Add Future work
