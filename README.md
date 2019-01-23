@@ -47,15 +47,41 @@ sklearn
 
 #### Data Download
 First, you are supposed to make a dataset directory.
- ```bash
-  cd data
-  mkdir dataset
-  ```
+```bash
+cd data
+mkdir dataset
+```
  You can download the source data from [here](https://pan.baidu.com/s/1NRgV2FCtCeHt2vc3Pmjo8w).
  Then you have to put the three zip files in the directory 'data/dataset' and unzip them in the current directory.
+```bash
+unzip ai_challenger_fl2018_testset.zip
+unzip ai_challenger_fl2018_trainingset.zip
+unzip ai_challenger_fl2018_validationset.zip
+```
 
 #### Data Pre-process
+Because we stack the bottom and upper slice to form a three channel image to model the content between slices, we have to pre-process the original images. 
+```bash
+cd ..
+python utils/gen_image.py
+```
+#### Data Structure
 
+```
+  data/dataset
+  ├── Edema_trainingset
+  |   ├── original_images
+  │   ├── label_images
+  │   ├── trans3channel_images
+  ├── Edema_validationset
+  |   ├── original_images
+  │   ├── label_images
+  │   ├── trans3channel_images
+  │   ├── groundtruth
+  ├── Edema_testset
+  |   ├── original_images
+  │   ├── trans3channel_images
+  ```
 
 ## 3. Usage
 To train the model:
@@ -94,26 +120,32 @@ CUDA_VISIBLE_DEVICES=2 python3 test.py -d ./data/dataset/ -l ./data/data_path -j
 | Fusion(*)      |-|- | -|0.805(+3.3%)|**0.991(2%)**|**0.744(6.1%)**|**0.986(+8.2%)**|-|
 
 
-## 5. Main Technique Analysis
+## 5. Experience Summary
+
 
 ## 6. Future Work
+  * 3D Segmentation Model (patch-wise segmention)
+  * Mask R-CNN Detection Model (segmention based on detection)
+  * More Data Augmentation (Train and Test)
+  * Content Encoding Module
+  * scSE Attention Module
 
 ## 7. To do
 - [x] Add Presentation PPT
 - [x] Add Dataset source
+- [x] Add Data prepare
 - [x] Add Visualization demo
 - [x] Add Usage
-- [ ] Add Main technique analysis
 - [x] Add pretrained model
 - [x] Add Results
-- [ ] Add Future work
+- [x] Add Future work
 - [x] Add Reference
-- [ ] Add Personal experience
+- [ ] Add Experience summary
 
-## 8. Acknowledge
+## 8. Acknowledgement
  * GPU support of [DeepWise](http://www.deepwise.com/) 
  * Mentor Prof. [Yizhou Wang](http://www.idm.pku.edu.cn/staff/wangyizhou/)'s guidence
- * The host，[AI challenger](https://challenger.ai/) platform
+ * The host,[AI challenger](https://challenger.ai/) platform
 
 ## 9. Reference
 #### Paper
