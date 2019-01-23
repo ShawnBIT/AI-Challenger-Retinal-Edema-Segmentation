@@ -60,8 +60,6 @@ def train(args,train_loader, model, criterion, optimizer, epoch,print_freq=10):
     end = time.time()
     correct,total  = 0,0
     for i, (input, target) in enumerate(train_loader):
-        if i > 20:
-            break
         # transfer seg target to cls target
         target_seg = target.numpy()
         target_cls = target_seg2target_cls(target_seg).cuda()
