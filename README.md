@@ -156,5 +156,5 @@ CUDA_VISIBLE_DEVICES=2 python3 test.py -d ./data/dataset/ -l ./data/data_path -j
 
 #### Code
  * https://github.com/fyu/drn (Our framework style mianly refered to this repository.)
- * https://github.com/ozan-oktay/Attention-Gated-Networks (Our model style mianly refered to this repository.）
+ * https://github.com/ozan-oktay/Attention-Gated-Networks (Our model style mainly refered to this repository.）
   
