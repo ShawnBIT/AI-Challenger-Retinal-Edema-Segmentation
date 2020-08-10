@@ -1,5 +1,5 @@
 # AI-Challenger-Retinal-Edema-Segmentation
-> Our team ranked fourth in objective results and ranked first in subjective results. Finally, we got the fourth place in this challenge. And our final presentation PPT is [as follows](https://github.com/ShawnBIT/AI-Challenger-Retinal-Edema-Segmentation/blob/master/materials/final-pre.pdf). 
+> Our team ranked fourth in objective results and ranked first in subjective results. Finally, we got the fourth place in this challenge. And our final presentation PPT is [as follows](https://github.com/ShawnBIT/AI-Challenger-Retinal-Edema-Segmentation/blob/master/materials/final-pre.pdf). If you need the dataset for scientific research purposes, please send a message to me via [Zhihu](https://www.zhihu.com/people/hellowangshushu).
 
 ## 0. Introduction
 
